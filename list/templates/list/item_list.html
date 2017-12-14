@@ -1,19 +1,27 @@
-<html>
-    <head>
-        <title>My first to-do-app</title>
-    </head>
-    <body>
-        <div>
-            <h1><a href="/">To-do app</a></h1>
+{% extends 'list/base.html' %}
+
+{% block content %}
+    {% for item in items %}
+
+        <div class="item">
+        	{% if item.important %}
+        	<span>
+        		<i 
+        			class="fa fa-exclamation fa-lg fa-fw important" 
+        			aria-hidden="true">
+        		</i>
+        	</span>
+        	{% endif %}
+            <span class="item__elem item-title">
+            	<a href="{% url 'item_detail' pk=item.pk %}">{{ item.title }}</a>
+            </span>
+            <span class="item__elem">{{ item.getPlace }}</span>
+            <span class="item__elem {{ item.isUrgent }}">{{ item.getUntilDate }}</span>
+            <span class="item__elem item-right">
+            	<i class="fa fa-check fa-fw" aria-hidden="true"></i>
+            	<i class="fa fa-times fa-fw" aria-hidden="true"></i>
+            </span>
         </div>
 
-        {% for item in items %}
-        	<div>
-	        	<p>published: {{ item.published_date }}</p>
-	        	<h1><a>{{ item.title }}</a></h1>
-	        	<p>{{ item.text|linebreaksbr }}</p>
-        	</div>        
-        {% endfor %}
-
-    </body>
-</html>
+    {% endfor %}
+{% endblock %}

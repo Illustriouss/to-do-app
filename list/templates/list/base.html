@@ -1,0 +1,25 @@
+{% load staticfiles %}
+
+<html>
+    <head>
+        <title>to-do list</title>
+        <link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+        <script src="https://use.fontawesome.com/6d6b522626.js"></script>
+        <link rel="stylesheet" href="{% static 'css/list.css' %}">
+    </head>
+    <body>
+        <div class="menu">
+
+        </div>
+        <div class="header">
+            <h1>To-do list</h1>
+        </div>
+        <div class="list">
+
+            {% block content %}
+
+            {% endblock %}
+
+        </div>    
+    </body>
+</html>

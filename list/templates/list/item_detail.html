@@ -1,0 +1,15 @@
+{% extends 'list/base.html' %}
+
+{% block content %}
+
+    <div class="item-details">
+    	<a 
+    		class="btn"
+    		href="{% url 'item_list' %}">
+    		Back
+    	</a>
+        <div class="date">{{ item.getUntilDate }}</div>
+        <div class="item-title">{{ item.title }}</div>
+        <p>{{ item.getPlace }}</p>
+    </div>
+{% endblock %}
