@@ -1,18 +1,66 @@
 {% load staticfiles %}
 
+<!DOCTYPE html>
 <html>
     <head>
         <title>to-do list</title>
         <link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
         <script src="https://use.fontawesome.com/6d6b522626.js"></script>
         <link rel="stylesheet" href="{% static 'css/list.css' %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
         <div class="menu">
+            <div class="user">
+                <div class="user--image"><img src="http://via.placeholder.com/200x200"></div>
+                <div class="user--info">Logged in as:</div>
+                <div class="user--name">{{ list.owner }}</div>
+            </div>
+            <div class="menu--divider"></div>
+            <div class="lists--title">your lists:</div>
+            <div class="lists">
+                
+                {% for list in lists %}
+                    
+                    <div class="list--selector" id="list-{{ list.pk }}">
+                        <a class="{{ list.isActive }}" href="/list/{{ list.pk }}/{{ list.slug }}">{{ list.title }}</a>
+                        <span class="list--remove js-remove-list"><i class="fa fa-times fa-fw" aria-hidden="true"></i></span>
+                    </div>
 
+                {% endfor %}
+                
+                
+            </div>
+            <form class="form--list js-form-list" method="POST" id="new-list-form">
+                    
+                {% csrf_token %}
+                {{ list_form.as_p }}
+
+            </form>
+            <div class="menu-btn js-add-list" href="">Create another list</div>
+            <div class="menu--divider"></div>
+            <div class="settings">
+                <div class="settings--title">Settings:</div>
+                <a class="menu-btn" href="{% url 'log_out' %}">Log out</a>
+            </div>
+        </div>
+        <div class="box js-add-item-box">
+            <h1>New Item</h1>
+            <form class="form--item" method="POST" id="new-item-form">
+                
+                {% csrf_token %}
+                {{ item_form.as_p }}
+                
+                <button type="submit">Save</button>
+            </form>
         </div>
         <div class="header">
-            <h1>To-do list</h1>
+            <div class="list__title">{{ list.title }}</div>
+            <div class="list__info">
+                <span>Today {{ list_info.items_today }}</span><br>
+                <span>important {{ list_info.items_important }}</span><br>
+                <span class="js-checked">Done {{ list_info.items_done }}</span> / <span class="js-count">{{ list_info.item_count }}</span>
+            </div>
         </div>
         <div class="list">
 
@@ -20,6 +68,9 @@
 
             {% endblock %}
 
-        </div>    
+        </div>
+        <div class="btn btn-add-item js-add-item"><i class="fa fa-plus" aria-hidden="true"></i></div>    
     </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="{% static 'js/functions.js' %}"></script>
 </html>

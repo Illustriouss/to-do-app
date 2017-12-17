@@ -1,8 +1,23 @@
 from django.db import models
 from django.utils import timezone
 
-class ListItem(models.Model):
-	author = models.ForeignKey('auth.User');
+class List(models.Model):
+	owner = models.ForeignKey('auth.User')
+	title = models.CharField(max_length=200)
+	slug = models.SlugField()
+	active = models.BooleanField(default=False)
+
+	def isActive(self):
+		if self.active:
+			return "list--active"
+		return ""
+
+	def __str__(self):
+		return self.title
+
+class Item(models.Model):
+	author = models.ForeignKey('auth.User')
+	list_id = models.ForeignKey(List)
 	title = models.CharField(max_length=200)
 	place = models.CharField(max_length=200, null=True)
 	created_date = models.DateTimeField(default=timezone.now)
@@ -14,6 +29,16 @@ class ListItem(models.Model):
 
 	def publish(self):
 		self.published_date = timezone.now()
+
+	def isImportant(self):
+		if self.important:
+			return "item--important"
+		return ""
+
+	def isDone(self):
+		if self.checked:
+			return "item--checked"
+		return ""
 
 	def setChecked(self):
 		self.checked = True
@@ -36,7 +61,6 @@ class ListItem(models.Model):
 			return	"in " + str("1 day")
 		if until_date < 1:
 			return "today"
-
 
 	def __str__(self):
 		return self.title

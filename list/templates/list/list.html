@@ -1,0 +1,34 @@
+{% extends 'list/base.html' %}
+
+{% block content %}
+
+    {% for item in items %}
+
+        <div class="item {{ item.isImportant }} {{ item.isDone }}" id="item-{{ item.pk }}">
+        	
+        	{% if item.important %}
+
+        		<span><i class="fa fa-exclamation fa-lg" aria-hidden="true"></i></span>
+
+        	{% endif %}
+            
+            <span class="item__elem item__elem--title">
+            	<a href="{% url 'item_detail' pk=item.pk %}">{{ item.title }}</a>
+            </span>
+            <span class="item__elem">{{ item.getPlace }}</span>
+            <span class="item__elem {{ item.isUrgent }}">{{ item.getUntilDate }}</span>
+            <span class="item__elem item__right">
+            	<a class="js-check-item"><i class="fa fa-check fa-fw" aria-hidden="true"></i></a>
+            	<a class="js-remove-item"><i class="fa fa-times fa-fw" aria-hidden="true"></i></a>
+            </span>
+        </div>
+
+    {% endfor %}
+
+    {% if not items %}
+
+    	<div class="msg">No items to display, add one!</div>
+
+    {% endif %}
+
+{% endblock %}
