@@ -73,6 +73,13 @@ $('.js-toggle-menu').on('click', () => {
 	$('.js-menu').slideToggle();
 });
 
+$(window).resize(function(e) {
+	if ($('.btn--menu').css('display') == 'none') {
+		$('.js-menu').css('display', 'block');
+	} else {
+		$('.js-menu').css('display', 'none');
+	}
+});
 
 // 
 // OTHER SCRIPTS
