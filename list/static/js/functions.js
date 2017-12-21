@@ -1,3 +1,8 @@
+//
+// BUTTON PRESSES
+//
+
+// Btn to check an item
 $('.item').on('click', '.js-check-item', (e) => {
 	let pk = $(e.currentTarget.closest('.item')).attr('id').replace('item-', '');
 
@@ -10,6 +15,7 @@ $('.item').on('click', '.js-check-item', (e) => {
 	});
 });
 
+// Btn to remove an item
 $('.item').on('click', '.js-remove-item', (e) => {
 	let pk = $(e.currentTarget.closest('.item')).attr('id').replace('item-', '');
 	
@@ -21,6 +27,7 @@ $('.item').on('click', '.js-remove-item', (e) => {
 	});
 })
  
+ // Btn to remove list
 $('.lists').on('click', '.js-remove-list', (e) => {
 	let pk = $(e.currentTarget.closest('.list--selector')).attr('id').replace('list-', '');
 
@@ -32,6 +39,7 @@ $('.lists').on('click', '.js-remove-list', (e) => {
 	});
 })
 
+// Form to add item to a form
 $('#new-item-form').submit(function(e) {
 	e.preventDefault();
 	$.ajax({
@@ -48,6 +56,29 @@ $('#new-item-form').submit(function(e) {
 	});
 })
 
+// Btn to open input for new list
+$('.js-add-list').on('click', () => {
+	$('.js-form-list').show();
+	$('.js-form-list input').focus();
+});
+
+// Btn to toggle the pop for new items
+$('.js-add-item').on('click', () => {
+	$('.box').slideToggle();
+	$('.js-add-item i').toggleClass('rotated', 500);
+});
+
+// Btn to open/close menu on mobile
+$('.js-toggle-menu').on('click', () => {
+	$('.js-menu').slideToggle();
+});
+
+
+// 
+// OTHER SCRIPTS
+//
+
+// Logic to add a new list
 $('.js-form-list input').keypress(function(e){
 	if(e.keyCode == 13){
 		$('#new-list-form').submit(function(e) {
@@ -77,16 +108,7 @@ $('.js-form-list input').keypress(function(e){
 	}
 });
 
-$('.js-add-list').on('click', () => {
-	$('.js-form-list').show();
-	$('.js-form-list input').focus();
-});
-
-$('.js-add-item').on('click', () => {
-	$('.box').slideToggle();
-	$('.js-add-item i').toggleClass('rotated', 500);
-});
-
+// Add placeholders to the django forms
 let placeholder_vals = [
 	'What to do?',
 	'Where?',
@@ -97,6 +119,7 @@ $('#new-item-form').find("input[type=text]").each(function(key, val) {
 	$(this).attr("placeholder", placeholder_vals[key]);
 });
 
+// Logic to change the list title
 $('.js-change-title').on('click', () => {
 	$('.js-change-title').hide();
 	$('.js-change-title-input').show().val($('.js-change-title').text()).focus();
@@ -120,4 +143,4 @@ $('.js-change-title-input').keypress(function(e) {
 			}
 		});
 	}
-})
+});

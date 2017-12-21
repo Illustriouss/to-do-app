@@ -10,7 +10,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-        <div class="menu">
+        <div class="menu js-menu">
+            <div class="btn--menu js-toggle-menu"><i class="fa fa-times" aria-hidden="true"></i></div>
             <div class="user">
                 <div class="user--image"><img src="http://via.placeholder.com/200x200"></div>
                 <div class="user--info">Logged in as:</div>
@@ -56,6 +57,7 @@
             </form>
         </div>
         <div class="header">
+            <div class="btn--menu js-toggle-menu"><i class="fa fa-bars" aria-hidden="true"></i></div>            
             <div class="list__title js-change-title" id="list-{{ list.pk }}">{{ list.title }}</div>
             <input class="list__title--edit js-change-title-input" name="list-title">
             <div class="list__info">
