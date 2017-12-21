@@ -1,0 +1,35 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+	<link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <script src="https://use.fontawesome.com/6d6b522626.js"></script>
+    <link rel="stylesheet" href="{% static 'css/list.css' %}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body class="body--img">
+	<div class="mini-box">
+
+		{% if not user.is_authenticated %}
+
+		<h1>Login to your lists</h1>
+		<form class="form--login" method="POST">
+			
+			{% csrf_token %}
+    		{{ form.as_p }}
+			
+			<button type="submit">Login</button>
+		</form>
+
+		{% else %}
+
+			<h1>You are already logged in!</h1>
+			<a class="menu-btn" href="loggedin">Go see your lists</a>
+
+		{% endif %}
+
+	</div>
+</body>
+</html>

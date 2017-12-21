@@ -56,7 +56,7 @@ class Item(models.Model):
 			return ""
 		until_date = (self.end_date.date() - timezone.now().date()).days
 		if until_date > 1:
-			return "over " + str(until_date) + " days"
+			return "in " + str(until_date) + " days"
 		if until_date == 1:
 			return	"in " + str("1 day")
 		if until_date < 1:

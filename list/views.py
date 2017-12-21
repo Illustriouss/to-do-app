@@ -9,28 +9,27 @@ import json
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.template.defaultfilters import slugify
-
+from django.contrib.auth import authenticate
 from django.contrib.auth import logout
-
-def new(request):
-
-	if request.user.is_authenticated:
-
-		default_list = List.objects.all().filter(owner=request.user)[0]
-		slug=default_list.slug
-		pk = default_list.pk
-		url = 'list/' + str(pk) + '/' + slug
-		return redirect(url)
-
-	return render(request, 'list/new.html')
+from django.core.exceptions import ObjectDoesNotExist
+from django.core.urlresolvers import reverse
 
 def list(request, slug, pk):
 	items_done = 0;
 	items_today = 0;
 	items_important = 0;
 
-	list = get_object_or_404(List, pk=pk)
 	lists = List.objects.all().filter(owner=request.user)
+	if lists.count() < 1:
+		list = List(owner=request.user, title='default list', slug=slugify('default list'))
+		list.save()
+
+	try:
+		list = List.objects.get(owner=request.user, pk=pk)
+	except ObjectDoesNotExist:
+		list = List.objects.get(owner=request.user, title='default list')
+		
+	
 	items = Item.objects.filter(published_date__lte=timezone.now(), list_id=list).order_by('end_date')
 	
 	for elem in lists:
@@ -126,6 +125,31 @@ def remove_list(request):
 			'pk': pk
 		})
 
+def loggedin(request):
+	user = request.user
+	list = List.objects.filter(owner=user).first()
+	if list is None:
+		list = List(owner=request.user, title='default list', slug=slugify('default list'))
+		list.save()
+
+	pk = list.pk
+	slug = list.slug
+
+	return redirect(reverse('list', kwargs={'pk': pk, 'slug': slug}))
+
 def log_out(request):
 	logout(request)
-	return redirect('new')
+	return redirect('login')
+
+def update_title(request):
+	pk = request.GET.get('pk', None)
+	new_title = request.GET.get('new_title', None)
+
+	list = List.objects.get(pk=pk)
+	list.title = new_title
+	list.save()
+
+	return JsonResponse({
+		'committed': True,
+		'pk': pk,
+		})

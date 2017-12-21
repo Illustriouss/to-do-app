@@ -96,3 +96,28 @@ let placeholder_vals = [
 $('#new-item-form').find("input[type=text]").each(function(key, val) {
 	$(this).attr("placeholder", placeholder_vals[key]);
 });
+
+$('.js-change-title').on('click', () => {
+	$('.js-change-title').hide();
+	$('.js-change-title-input').show().val($('.js-change-title').text()).focus();
+});
+
+$('.js-change-title-input').keypress(function(e) {
+	if (e.keyCode == 13) {
+		pk = $('.js-change-title').attr('id').replace('list-', '');
+		new_title = $('.js-change-title-input').val();
+		$.ajax({
+			url: '/update_title/',
+			data: {
+				'pk': pk,
+				'new_title': new_title
+			},
+		}).done(function(response) {
+			if (response['committed']) {
+				$('.js-change-title').text($('.js-change-title-input').val()).show();
+				$('.js-change-title-input').hide();
+				$('#list-' + response['pk']).text($('.js-change-title-input').val());
+			}
+		});
+	}
+})

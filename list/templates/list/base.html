@@ -42,7 +42,6 @@
             <div class="settings">
                 <div class="settings--title">Settings:</div>
                 <div>Show tooltips</div>
-                <div>Clear this list</div>
                 <a class="menu-btn" href="{% url 'log_out' %}">Log out</a>
             </div>
         </div>
@@ -57,7 +56,8 @@
             </form>
         </div>
         <div class="header">
-            <div class="list__title">{{ list.title }}</div>
+            <div class="list__title js-change-title" id="list-{{ list.pk }}">{{ list.title }}</div>
+            <input class="list__title--edit js-change-title-input" name="list-title">
             <div class="list__info">
                 <span>Today {{ list_info.items_today }}</span><br>
                 <span>important {{ list_info.items_important }}</span><br>
