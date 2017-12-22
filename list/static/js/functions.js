@@ -97,9 +97,6 @@ $('.js-form-list input').keypress(function(e){
 				type: 'POST'
 			}).done(function(response) {
 				if (response['committed']) {
-					console.log(response['pk']);
-					console.log(response['slug']);
-					console.log(response['title']);
 					
 					let new_list = 
 					"<div class='list--selector' id='list-" + response['pk'] + "'>" + 
