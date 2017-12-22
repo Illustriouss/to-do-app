@@ -36,6 +36,7 @@ $('.lists').on('click', '.js-remove-list', (e) => {
 		data: {'pk': pk},
 	}).done(function(response) {
 		$('#list-'+response['pk']).remove();
+		location.reload(true);
 	});
 })
 
@@ -49,6 +50,7 @@ $('#new-item-form').submit(function(e) {
 	}).done(function(response) {
 		if (response['committed']) {
 			$('.list').append("<div>an item was added, please refresh</div>");
+			location.reload(true);
 		}
 		$('.box').slideToggle();
 		$('#new-item-form').trigger("reset");
