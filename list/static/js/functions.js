@@ -36,7 +36,6 @@ $('.lists').on('click', '.js-remove-list', (e) => {
 		data: {'pk': pk},
 	}).done(function(response) {
 		$('#list-'+response['pk']).remove();
-		location.reload(true);
 	});
 })
 
