@@ -49,7 +49,7 @@ h1 {
 
 .mini-box {
     position: absolute;
-    width: 30%;
+    width: 80%;
     box-sizing: border-box;
     padding: 20px;
     background-color: white;
@@ -87,7 +87,7 @@ h1 {
     padding: 20px;
     box-sizing: border-box;
     text-align: center;
-    overflow: hidden;
+    overflow-y: auto;
     z-index: 1;
 }
 
@@ -102,7 +102,6 @@ h1 {
 }
 
 .user--image {
-    padding-top: 100px;
     width: 100px;
     height: 100px;
     margin: 20px auto;
@@ -221,6 +220,7 @@ form.form--list input {
     display: none;
     padding: 20vh 20vw;
     box-sizing: border-box;
+    overflow: auto;
 }
 
 form.form--item {
@@ -266,6 +266,7 @@ form.form--item input::placeholder {
     position: relative;
     box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.1);
     min-height: 120px;
+    box-sizing: border-box;
 }
 
 .btn--menu {
@@ -374,6 +375,10 @@ form.form--item input::placeholder {
         left: 20%;
         width: 80%;
         position: relative;
+    }
+
+    .mini-box {
+        width: 30%;
     }
 
 }
