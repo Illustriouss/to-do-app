@@ -280,6 +280,7 @@ form.form--item input::placeholder {
     bottom: 20px;
     left: 20px;
     font-size: 2em;
+    cursor: pointer;
     font-weight: bold;
 }
 
